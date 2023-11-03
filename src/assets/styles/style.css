@@ -83,12 +83,33 @@
     @apply rotate-180 duration-300 opacity-60;
   }
   .dropdown-menu {
-    @apply absolute top-10 right-0 bg-gray-50 rounded-lg overflow-hidden shadow divide-y whitespace-nowrap translate-y-4 invisible opacity-0 duration-300;
+    @apply absolute top-10 right-0 z-50 bg-gray-50 rounded-lg overflow-hidden shadow divide-y whitespace-nowrap translate-y-4 invisible opacity-0 duration-300;
   }
   .dropdown-menu li {
     @apply py-1 px-4;
   }
   .dropdown-menu li:hover {
     @apply bg-gray-200;
+  }
+}
+
+@layer components {
+  .banner-overlay {
+    position: relative;
+  }
+  .banner-overlay::before {
+    z-index: 3;
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5) 30%,
+      rgba(0, 0, 0, 0.2) 80%
+    );
   }
 }

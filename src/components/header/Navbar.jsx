@@ -86,7 +86,7 @@ const Navbar = () => {
     <>
       <nav
         className={`flex items-center justify-between duration-300 ${
-          isSticky ? "fixed top-0 left-0 w-full bg-white p-4 shadow" : ""
+          isSticky ? "fixed top-0 left-0 w-full bg-white p-4 shadow z-50" : ""
         }`}
       >
         <SiteLogo />
