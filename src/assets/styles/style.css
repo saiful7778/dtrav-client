@@ -122,3 +122,12 @@
     );
   }
 }
+
+@layer components {
+  .input {
+    @apply w-full py-2 px-3 rounded-md border border-gray-200;
+  }
+  .input:focus {
+    @apply outline-dashed outline-primary outline-2;
+  }
+}
