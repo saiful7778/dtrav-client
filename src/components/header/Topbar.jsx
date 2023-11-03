@@ -3,7 +3,7 @@ import { BsFacebook, BsGithub, BsLinkedin } from "react-icons/bs";
 
 const Topbar = () => {
   return (
-    <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-300">
+    <div className="flex items-center justify-between py-3 px-2 border-b border-gray-300">
       <div className="flex items-center divide-x divide-gray-300">
         <Link
           className="text-gray-500 p-2 outline-focus"
@@ -28,10 +28,10 @@ const Topbar = () => {
         </Link>
       </div>
       <div className="flex items-center gap-4">
-        <Link to="/sign_in" className="btn-pri btn-sm" type="button">
+        <Link to="/signin" className="btn-pri btn-sm" type="button">
           sign in
         </Link>
-        <Link to="/sign_up" className="btn-outline btn-sm" type="button">
+        <Link to="/signup" className="btn-outline btn-sm" type="button">
           sign up
         </Link>
       </div>

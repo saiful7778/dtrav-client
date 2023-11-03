@@ -55,7 +55,18 @@ const navLinks = [
       },
     ],
   },
-  { _id: "nv4", navName: "hotel", path: "/hotel" },
+  {
+    _id: "nv4",
+    navName: "hotel",
+    path: "/hotel",
+    hasDropdown: true,
+    dropmenu: [
+      { _id: "dp5", navName: "3 star", path: "/hotel/3_star" },
+      { _id: "dp6", navName: "5 star", path: "/hotel/5_star" },
+      { _id: "dp7", navName: "6 star", path: "/hotel/6_star" },
+      { _id: "dp8", navName: "7 star", path: "/hotel/7_star" },
+    ],
+  },
   { _id: "nv5", navName: "blog", path: "/blog" },
   { _id: "nv6", navName: "contact us", path: "/contact", buttonMode: true },
 ];
@@ -109,7 +120,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`flex items-center justify-between duration-300 ${
+        className={`flex items-center justify-between duration-300 border-b border-gray-300 py-3 px-2 ${
           isSticky ? "fixed top-0 left-0 w-full bg-white p-4 shadow z-50" : ""
         }`}
       >
@@ -128,7 +139,7 @@ const Navbar = () => {
         </div>
       </nav>
       <div
-        className={`fixed min-h-screen lg:hidden top-0 py-4 px-8 duration-300 z-50 border-l border-gray-300 bg-gray-50 ${
+        className={`fixed min-h-screen lg:hidden overflow-y-scroll top-0 py-4 px-8 duration-300 z-50 border-l border-gray-300 bg-gray-50 ${
           showMobileMenu ? "right-0" : "-right-full"
         }`}
       >
