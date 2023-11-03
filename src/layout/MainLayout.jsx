@@ -5,9 +5,9 @@ import Banner from "../components/header/Banner";
 
 const MainLayout = () => {
   return (
-    <div className="w-full min-h-screen overflow-x-hidden font-poppins text-gray-800 bg-gray-100">
+    <div className="w-full relative min-h-screen overflow-x-hidden font-poppins text-gray-800 bg-gray-100">
       <header>
-        <div className="container w-full md:w-90 mx-auto p-4">
+        <div className="container w-full md:w-90 mx-auto p-4 relative">
           <Topbar />
           <Navbar />
         </div>

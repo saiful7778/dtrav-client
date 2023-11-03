@@ -128,7 +128,7 @@ const Navbar = () => {
         </div>
       </nav>
       <div
-        className={`absolute min-h-screen lg:hidden top-0 py-4 px-8 duration-300 z-50 border-l border-gray-300 bg-gray-50 ${
+        className={`fixed min-h-screen lg:hidden top-0 py-4 px-8 duration-300 z-50 border-l border-gray-300 bg-gray-50 ${
           showMobileMenu ? "right-0" : "-right-full"
         }`}
       >
@@ -193,7 +193,7 @@ const MobileDropdown = ({ dropdownMenu }) => {
     </li>
   ));
   return (
-    <ul className="ml-6 divide-y divide-gray-300">{renderMobileDropdown}</ul>
+    <ul className="ml-2 divide-y divide-gray-300">{renderMobileDropdown}</ul>
   );
 };
 MobileDropdown.propTypes = {
