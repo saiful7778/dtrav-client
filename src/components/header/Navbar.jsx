@@ -1,6 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import SiteLogo from "../SiteLogo";
-import { AiOutlineMenuFold } from "react-icons/ai";
+import { AiOutlineMenuFold, AiOutlineRight } from "react-icons/ai";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { RxCrossCircled } from "react-icons/rx";
 import { useState, useEffect } from "react";
@@ -29,6 +29,24 @@ const navLinks = [
         _id: "dp3",
         navName: "5 packages",
         path: "/tour_packages/5_day_packages",
+        hasSubDropdown: true,
+        subDropmenu: [
+          {
+            _id: "sdp1",
+            navName: "bronze",
+            path: "/tour_packages/5_day_packages/bronze",
+          },
+          {
+            _id: "sdp2",
+            navName: "silver",
+            path: "/tour_packages/5_day_packages/sliver",
+          },
+          {
+            _id: "sdp3",
+            navName: "diamond",
+            path: "/tour_packages/5_day_packages/diamond",
+          },
+        ],
       },
       {
         _id: "dp4",
@@ -62,10 +80,8 @@ const Navbar = () => {
     };
   }, []);
 
-  console.log(isSticky);
-
   const renderNavlinks = navLinks?.map((ele) => (
-    <li key={ele._id} className={ele?.hasDropdown ? "dropdown" : "nav-item"}>
+    <li key={ele._id} className={ele?.hasDropdown && "dropdown"}>
       <NavLink
         className={ele?.buttonMode ? "btn-pri" : "nav-link"}
         to={ele.path}
@@ -80,6 +96,14 @@ const Navbar = () => {
           <DropdownMenu dropdownMenu={ele.dropmenu} />
         </>
       )}
+    </li>
+  ));
+  const renderMobileNavLinks = navLinks?.map((ele) => (
+    <li key={ele._id}>
+      <NavLink className="py-2 capitalize inline-block" to={ele.path}>
+        {ele.navName}
+      </NavLink>
+      {ele.hasDropdown && <MobileDropdown dropdownMenu={ele.dropmenu} />}
     </li>
   ));
   return (
@@ -115,7 +139,7 @@ const Navbar = () => {
         >
           <RxCrossCircled size={25} />
         </button>
-        <ul className="space-y-4 mt-4">{renderNavlinks}</ul>
+        <ul className="divide-y divide-gray-300">{renderMobileNavLinks}</ul>
       </div>
     </>
   );
@@ -123,8 +147,16 @@ const Navbar = () => {
 
 const DropdownMenu = ({ dropdownMenu }) => {
   const renderDropdownMenu = dropdownMenu?.map((ele) => (
-    <li key={ele._id}>
+    <li key={ele._id} className={ele.hasSubDropdown && "sub-dropdown"}>
       <Link to={ele.path}>{ele.navName}</Link>
+      {ele.hasSubDropdown && (
+        <>
+          <div>
+            <AiOutlineRight />
+          </div>
+          <SubDropmenu subDropmenu={ele.subDropmenu} />
+        </>
+      )}
     </li>
   ));
   return <ul className="dropdown-menu">{renderDropdownMenu}</ul>;
@@ -132,6 +164,56 @@ const DropdownMenu = ({ dropdownMenu }) => {
 
 DropdownMenu.propTypes = {
   dropdownMenu: PropTypes.array,
+};
+
+const SubDropmenu = ({ subDropmenu }) => {
+  const renderSubDropdown = subDropmenu?.map((ele) => (
+    <li key={ele._id}>
+      <Link className="capitalize" to={ele.path}>
+        {ele.navName}
+      </Link>
+    </li>
+  ));
+  return <ul className="sub-dropdown-menu">{renderSubDropdown}</ul>;
+};
+
+SubDropmenu.propTypes = {
+  subDropmenu: PropTypes.array,
+};
+
+const MobileDropdown = ({ dropdownMenu }) => {
+  const renderMobileDropdown = dropdownMenu.map((ele) => (
+    <li key={ele._id}>
+      <Link className="inline-block py-1 px-2" to={ele.path}>
+        {ele.navName}
+      </Link>
+      {ele.hasSubDropdown && (
+        <MobileSubDropdown subDropdown={ele.subDropmenu} />
+      )}
+    </li>
+  ));
+  return (
+    <ul className="ml-6 divide-y divide-gray-300">{renderMobileDropdown}</ul>
+  );
+};
+MobileDropdown.propTypes = {
+  dropdownMenu: PropTypes.array,
+};
+
+const MobileSubDropdown = ({ subDropdown }) => {
+  const renderMobileSubDropdown = subDropdown.map((ele) => (
+    <li key={ele._id}>
+      <Link className="py-1 px-2 capitalize inline-block" to={ele.path}>
+        {ele.navName}
+      </Link>
+    </li>
+  ));
+  return (
+    <ul className="ml-4 divide-y divide-gray-300">{renderMobileSubDropdown}</ul>
+  );
+};
+MobileSubDropdown.propTypes = {
+  subDropdown: PropTypes.array,
 };
 
 export default Navbar;

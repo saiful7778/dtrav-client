@@ -83,13 +83,22 @@
     @apply rotate-180 duration-300 opacity-60;
   }
   .dropdown-menu {
-    @apply absolute top-10 right-0 z-50 bg-gray-50 rounded-lg overflow-hidden shadow divide-y whitespace-nowrap translate-y-4 invisible opacity-0 duration-300;
+    @apply absolute top-10 right-0 z-50 bg-gray-50 rounded-lg shadow divide-y whitespace-nowrap translate-y-4 invisible opacity-0 duration-300;
   }
   .dropdown-menu li {
-    @apply py-1 px-4;
+    @apply py-1 px-4 rounded-lg;
   }
   .dropdown-menu li:hover {
     @apply bg-gray-200;
+  }
+  .sub-dropdown {
+    @apply relative flex items-center gap-1;
+  }
+  .sub-dropdown-menu {
+    @apply absolute left-full top-0 z-50 bg-gray-50 rounded-lg shadow divide-y whitespace-nowrap invisible opacity-0 duration-300;
+  }
+  .sub-dropdown:hover .sub-dropdown-menu {
+    @apply visible opacity-100;
   }
 }
 
