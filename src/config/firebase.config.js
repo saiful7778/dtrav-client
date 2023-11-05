@@ -7,4 +7,4 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APPID,
 };
 
-export default firebaseConfig'
+export default firebaseConfig;

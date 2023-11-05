@@ -124,8 +124,35 @@
 }
 
 @layer components {
+  .spinner {
+    --spinner-width: 3px;
+    --spinner-size: 20px;
+  }
+  .spinner-lg {
+    --spinner-width: 3px;
+    --spinner-size: 25px;
+  }
+  .spinner {
+    @apply border-t-red-600 border-gray-100;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    border-width: var(--spinner-width);
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@layer components {
   .input {
-    @apply w-full py-2 px-3 rounded-md border border-gray-200;
+    @apply w-full py-2 px-3 rounded-md bg-gray-200 border border-gray-300;
   }
   .input:focus {
     @apply outline-dashed outline-primary outline-2;

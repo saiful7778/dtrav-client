@@ -3,6 +3,7 @@ import MainLayout from "./layout/MainLayout";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import TermsAndCond from "./pages/TermsAndCond";
 
 const route = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const route = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/terms_and_conditions",
+        element: <TermsAndCond />,
       },
       {
         path: "/signin",
