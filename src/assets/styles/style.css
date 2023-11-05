@@ -158,3 +158,9 @@
     @apply outline-dashed outline-primary outline-2;
   }
 }
+
+@layer components {
+  .avater {
+    @apply font-medium overflow-hidden uppercase w-8 h-8 inline-flex justify-center items-center rounded-full outline-dashed outline-2 outline-primary outline-offset-2 bg-white;
+  }
+}

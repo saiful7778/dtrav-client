@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import { AiOutlineGithub, AiOutlineGoogle } from "react-icons/ai";
 import { BiLogoFacebookCircle } from "react-icons/bi";
+import { AuthData } from "../hooks/AuthContext";
 
 const AuthMethod = () => {
+  const { googleAuth } = useContext(AuthData);
   return (
     <div className="flex flex-wrap justify-center gap-2 items-center mt-4">
       <button
+        onClick={googleAuth}
         type="button"
         className="flex justify-center items-center gap-1 rounded-md border border-green-600 text-green-600 px-3 py-2 divide-x divide-green-600"
       >
