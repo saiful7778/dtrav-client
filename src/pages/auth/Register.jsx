@@ -4,11 +4,17 @@ import { FaUserAstronaut, FaEnvelope, FaLock } from "react-icons/fa";
 import { Button, Spinner } from "keep-react";
 import { registerSchema } from "@/lib/schemas/authectication";
 import Password from "@/components/formik/Password";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axiosBase from "@/lib/config/axios.config";
+import useAuth from "@/hooks/useAuth";
+import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [spinner, setSpinner] = useState(false);
+  const navigate = useNavigate();
+  const { register } = useAuth();
 
   const initialValues = {
     fullName: "",
@@ -19,8 +25,31 @@ const Register = () => {
 
   const handleSubmit = async (e, { resetForm }) => {
     setSpinner(true);
-    console.log(e);
-    resetForm();
+    try {
+      const { user } = await register(e.email, e.password);
+      await updateProfile(user, {
+        displayName: e.fullName,
+      });
+      await axiosBase.post("/authentication/register", {
+        email: e.email,
+        name: e.fullName,
+        userID: user.uid,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Account is created",
+      });
+      navigate("/");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: err,
+      });
+      console.error(err);
+    } finally {
+      setSpinner(false);
+      resetForm();
+    }
   };
 
   return (
@@ -63,7 +92,7 @@ const Register = () => {
             icon={<FaLock size={19} />}
           />
           <Button
-            className="bg-pri hover:bg-pri/80 disabled:bg-pri/50 w-full"
+            className="w-full bg-pri hover:bg-pri/80 disabled:bg-pri/50"
             disabled={spinner}
             type="submit"
             size="sm"

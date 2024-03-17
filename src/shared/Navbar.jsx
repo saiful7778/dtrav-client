@@ -2,11 +2,12 @@ import SiteLogo from "@/components/SiteLogo";
 import cn from "@/lib/cn";
 import { navLinks } from "@/staticData";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { RxCrossCircled } from "react-icons/rx";
-import { Button } from "keep-react";
+import { Avatar, Button, Popover } from "keep-react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import useAuth from "@/hooks/useAuth";
 
 const Navbar = () => {
   const { scrollY } = useScroll();
@@ -90,7 +91,49 @@ const Navbar = () => {
 };
 
 const Authectication = () => {
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+  };
+
+  if (user) {
+    return (
+      <Popover placement="bottom-end">
+        <Popover.Action className="p-0">
+          <Avatar
+            className="bg-gray-300"
+            size="md"
+            shape="circle"
+            img={user?.photoURL}
+          />
+        </Popover.Action>
+        <Popover.Content className="z-20 rounded bg-white p-2 shadow">
+          <ul className="text-xs text-gray-500">
+            <li>Name: {user.displayName}</li>
+            <li>Email: {user.email}</li>
+          </ul>
+
+          <Link
+            className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300"
+            to="/admin/dashboard"
+          >
+            Dashboard
+          </Link>
+          <Button
+            onClick={handleLogout}
+            className="w-full py-1"
+            color="error"
+            size="xs"
+          >
+            Logout
+          </Button>
+        </Popover.Content>
+      </Popover>
+    );
+  }
+
   return (
     <>
       <Button
@@ -103,7 +146,7 @@ const Authectication = () => {
       </Button>
       <Button
         onClick={() => navigate("/authentication/register")}
-        className="text-pri border-pri hover:border-pri/80 hover:bg-pri hover:text-gray-50"
+        className="border-pri text-pri hover:border-pri/80 hover:bg-pri hover:text-gray-50"
         size="xs"
         color="primary"
         variant="outline"

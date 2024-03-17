@@ -1,14 +1,19 @@
 import { loginSchema } from "@/lib/schemas/authectication";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import { Button, Spinner } from "keep-react";
 import { useState } from "react";
-import { Form, Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import Password from "@/components/formik/Password";
 import { Input } from "@/components/formik/Input";
+import useAuth from "@/hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [spinner, setSpinner] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
 
   const initialValues = {
     email: "",
@@ -18,7 +23,24 @@ const Login = () => {
   const handleSubmit = async (e, { resetForm }) => {
     setSpinner(true);
     console.log(e);
-    resetForm();
+    try {
+      const { user } = await login(e.email, e.password);
+      Swal.fire({
+        icon: "success",
+        title: user.displayName,
+        text: "Account successfully logged in!",
+      });
+      navigate(location.state ? location.state.from.pathname : "/");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: err,
+      });
+      console.error(err);
+    } finally {
+      setSpinner(false);
+      resetForm();
+    }
   };
 
   return (
@@ -46,7 +68,7 @@ const Login = () => {
             icon={<FaLock size={19} />}
           />
           <Button
-            className="bg-pri hover:bg-pri/80 disabled:bg-pri/50 w-full"
+            className="w-full bg-pri hover:bg-pri/80 disabled:bg-pri/50"
             disabled={spinner}
             type="submit"
             size="sm"
