@@ -1,4 +1,5 @@
 import Banner from "@/shared/Banner";
+import Footer from "@/shared/Footer";
 import Navbar from "@/shared/Navbar";
 import { Spinner } from "keep-react";
 import { Outlet, useLocation, useNavigation } from "react-router-dom";
@@ -23,6 +24,7 @@ const MainLayout = () => {
           )}
         </main>
       </div>
+      <Footer />
     </div>
   );
 };
