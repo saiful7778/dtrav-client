@@ -1,13 +1,20 @@
+import AdminDropDown from "@/shared/AdminDropDown";
+import Sidebar from "@/shared/Sidebar";
 import { Outlet } from "react-router-dom";
 
 const AdminLayout = () => {
   return (
-    <div className="flex gap-2">
-      <aside>sidebar</aside>
-      <main className="flex-1">
-        <Outlet />
-      </main>
-    </div>
+    <>
+      <AdminDropDown />
+      <div className="flex gap-2">
+        <aside>
+          <Sidebar />
+        </aside>
+        <div className="flex-1">
+          <Outlet />
+        </div>
+      </div>
+    </>
   );
 };
 

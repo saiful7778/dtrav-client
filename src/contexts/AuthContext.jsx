@@ -31,8 +31,6 @@ const AuthContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  console.log(token);
-
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (currentUser) => {
       setLoader(false);
