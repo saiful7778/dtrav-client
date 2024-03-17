@@ -117,7 +117,7 @@ const Authectication = () => {
 
           <Link
             className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300"
-            to="/admin/dashboard"
+            to="/admin/profile"
           >
             Dashboard
           </Link>

@@ -22,7 +22,6 @@ const Login = () => {
 
   const handleSubmit = async (e, { resetForm }) => {
     setSpinner(true);
-    console.log(e);
     try {
       const { user } = await login(e.email, e.password);
       Swal.fire({
