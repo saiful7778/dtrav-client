@@ -1,6 +1,7 @@
 import Authentication from "@/layouts/Authentication";
 import MainLayout from "@/layouts/MainLayout";
 import ErrorPage from "@/pages/ErrorPage";
+import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import About from "@/pages/public/About";
 import Home from "@/pages/public/Home";
@@ -27,6 +28,10 @@ export const route = createBrowserRouter([
           {
             path: "register",
             element: <Register />,
+          },
+          {
+            path: "login",
+            element: <Login />,
           },
         ],
       },

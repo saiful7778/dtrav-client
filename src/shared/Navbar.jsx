@@ -2,7 +2,7 @@ import SiteLogo from "@/components/SiteLogo";
 import cn from "@/lib/cn";
 import { navLinks } from "@/staticData";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { RxCrossCircled } from "react-icons/rx";
 import { Button } from "keep-react";
@@ -90,12 +90,19 @@ const Navbar = () => {
 };
 
 const Authectication = () => {
+  const navigate = useNavigate();
   return (
     <>
-      <Button className="bg-pri hover:bg-pri/80" size="xs" color="primary">
+      <Button
+        onClick={() => navigate("/authentication/login")}
+        className="bg-pri hover:bg-pri/80"
+        size="xs"
+        color="primary"
+      >
         Login
       </Button>
       <Button
+        onClick={() => navigate("/authentication/register")}
         className="text-pri border-pri hover:border-pri/80 hover:bg-pri hover:text-gray-50"
         size="xs"
         color="primary"

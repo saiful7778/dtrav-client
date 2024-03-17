@@ -1,20 +1,18 @@
-import { Form, Formik } from "formik";
-import { Input } from "@/components/formik/Input";
-import { FaUserAstronaut, FaEnvelope, FaLock } from "react-icons/fa";
+import { loginSchema } from "@/lib/schemas/authectication";
+import { Formik } from "formik";
 import { Button, Spinner } from "keep-react";
-import { registerSchema } from "@/lib/schemas/authectication";
-import Password from "@/components/formik/Password";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Form, Link } from "react-router-dom";
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import Password from "@/components/formik/Password";
+import { Input } from "@/components/formik/Input";
 
-const Register = () => {
+const Login = () => {
   const [spinner, setSpinner] = useState(false);
 
   const initialValues = {
-    fullName: "",
     email: "",
     password: "",
-    confirmPassword: "",
   };
 
   const handleSubmit = async (e, { resetForm }) => {
@@ -25,21 +23,13 @@ const Register = () => {
 
   return (
     <div>
-      <h4 className="mb-2 text-center text-3xl font-bold">Register</h4>
+      <h4 className="mb-2 text-center text-3xl font-bold">Login</h4>
       <Formik
         initialValues={initialValues}
-        validationSchema={registerSchema}
+        validationSchema={loginSchema}
         onSubmit={handleSubmit}
       >
         <Form className="space-y-2">
-          <Input
-            type="text"
-            placeholder="Full name"
-            label="Your name"
-            name="fullName"
-            disabled={spinner}
-            icon={<FaUserAstronaut size={19} />}
-          />
           <Input
             type="email"
             placeholder="Valid email"
@@ -55,30 +45,23 @@ const Register = () => {
             disabled={spinner}
             icon={<FaLock size={19} />}
           />
-          <Password
-            placeholder="Confirm password"
-            label="Confirm password"
-            name="confirmPassword"
-            disabled={spinner}
-            icon={<FaLock size={19} />}
-          />
           <Button
             className="bg-pri hover:bg-pri/80 disabled:bg-pri/50 w-full"
             disabled={spinner}
             type="submit"
             size="sm"
           >
-            {spinner ? <Spinner /> : "Register"}
+            {spinner ? <Spinner /> : "Login"}
           </Button>
         </Form>
       </Formik>
       <p className="mt-2 text-center">
-        <Link className="underline" to="/authentication/login">
-          Already have an account?
+        <Link className="underline" to="/authentication/register">
+          Don{`'`}t have any account?
         </Link>
       </p>
     </div>
   );
 };
 
-export default Register;
+export default Login;
