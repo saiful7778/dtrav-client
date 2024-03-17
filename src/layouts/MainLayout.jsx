@@ -15,7 +15,9 @@ const MainLayout = () => {
         </header>
         <main className="mb-8 mt-14 p-2">
           {navigation.state === "loading" ? (
-            <Spinner color="info" size="xl" />
+            <div className="flex h-[50vh] w-full items-center justify-center">
+              <Spinner color="info" size="xl" />
+            </div>
           ) : (
             <Outlet />
           )}

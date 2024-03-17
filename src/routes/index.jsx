@@ -8,6 +8,7 @@ import Register from "@/pages/auth/Register";
 import About from "@/pages/public/About";
 import Home from "@/pages/public/Home";
 import { createBrowserRouter } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 
 export const route = createBrowserRouter([
   {
@@ -39,7 +40,11 @@ export const route = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <AdminLayout />,
+        element: (
+          <PrivateRoute>
+            <AdminLayout />
+          </PrivateRoute>
+        ),
         children: [
           {
             path: "profile",
