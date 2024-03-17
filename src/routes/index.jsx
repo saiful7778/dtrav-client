@@ -1,6 +1,8 @@
+import AdminLayout from "@/layouts/AdminLayout";
 import Authentication from "@/layouts/Authentication";
 import MainLayout from "@/layouts/MainLayout";
 import ErrorPage from "@/pages/ErrorPage";
+import Dashboard from "@/pages/admin/Dashboard";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import About from "@/pages/public/About";
@@ -32,6 +34,16 @@ export const route = createBrowserRouter([
           {
             path: "login",
             element: <Login />,
+          },
+        ],
+      },
+      {
+        path: "/admin",
+        element: <AdminLayout />,
+        children: [
+          {
+            path: "dashboard",
+            element: <Dashboard />,
           },
         ],
       },
