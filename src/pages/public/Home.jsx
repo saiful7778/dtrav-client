@@ -1,7 +1,20 @@
-import { Tabs } from "keep-react";
+import { Spinner, Tabs } from "keep-react";
 import overviewVideo from "@/assets/overview-video.mp4";
+import { useQuery } from "@tanstack/react-query";
+import axiosBase from "@/lib/config/axios.config";
+import PackageItem from "@/components/PackageItem";
 
 const Home = () => {
+  const { data: packages, isLoading } = useQuery({
+    queryKey: ["packages"],
+    queryFn: async () => {
+      const { data } = await axiosBase.get("/packages", {
+        params: { limit: 3 },
+      });
+      return data?.data;
+    },
+  });
+
   return (
     <>
       <h3 className="text-center text-3xl font-bold">
@@ -29,7 +42,19 @@ const Home = () => {
               </div>
             </div>
           </Tabs.Content>
-          <Tabs.Content label="packages">Packages</Tabs.Content>
+          <Tabs.Content className="text-gray-800" label="packages">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {isLoading ? (
+                <div className="flex justify-center">
+                  <Spinner color="info" size="xl" />
+                </div>
+              ) : (
+                packages?.map((ele, idx) => (
+                  <PackageItem key={"pk" + idx} inputData={ele} />
+                ))
+              )}
+            </div>
+          </Tabs.Content>
           <Tabs.Content label="tourGuide">Meet Our Tour Guides</Tabs.Content>
         </div>
       </Tabs>
