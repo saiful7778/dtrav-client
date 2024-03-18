@@ -8,12 +8,13 @@ import Password from "@/components/formik/Password";
 import { Input } from "@/components/formik/Input";
 import useAuth from "@/hooks/useAuth";
 import Swal from "sweetalert2";
+import SocialAuth from "@/components/SocialAuth";
 
 const Login = () => {
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth();
+  const { login, googleAuth } = useAuth();
 
   const initialValues = {
     email: "",
@@ -39,6 +40,24 @@ const Login = () => {
     } finally {
       setSpinner(false);
       resetForm();
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { user } = await googleAuth();
+      Swal.fire({
+        icon: "success",
+        title: user.displayName,
+        text: "Account successfully logged in!",
+      });
+      navigate(location.state ? location.state.from.pathname : "/");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: err,
+      });
+      console.error(err);
     }
   };
 
@@ -76,6 +95,7 @@ const Login = () => {
           </Button>
         </Form>
       </Formik>
+      <SocialAuth handleGoogle={handleGoogleLogin} />
       <p className="mt-2 text-center">
         <Link className="underline" to="/authentication/register">
           Don{`'`}t have any account?

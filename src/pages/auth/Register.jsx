@@ -10,11 +10,12 @@ import axiosBase from "@/lib/config/axios.config";
 import useAuth from "@/hooks/useAuth";
 import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
+import SocialAuth from "@/components/SocialAuth";
 
 const Register = () => {
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const { register, googleAuth } = useAuth();
 
   const initialValues = {
     fullName: "",
@@ -49,6 +50,28 @@ const Register = () => {
     } finally {
       setSpinner(false);
       resetForm();
+    }
+  };
+
+  const handleGoogleRegister = async () => {
+    try {
+      const { user } = await googleAuth();
+      await axiosBase.post("/authentication/register", {
+        email: user.email,
+        name: user.displayName,
+        userID: user.uid,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Account is created",
+      });
+      navigate("/");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: err,
+      });
+      console.error(err);
     }
   };
 
@@ -101,6 +124,7 @@ const Register = () => {
           </Button>
         </Form>
       </Formik>
+      <SocialAuth handleGoogle={handleGoogleRegister} />
       <p className="mt-2 text-center">
         <Link className="underline" to="/authentication/login">
           Already have an account?
