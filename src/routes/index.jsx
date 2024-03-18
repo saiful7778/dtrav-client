@@ -9,6 +9,10 @@ import About from "@/pages/public/About";
 import Home from "@/pages/public/Home";
 import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import Booking from "@/pages/admin/Booking";
+import Wishlist from "@/pages/admin/Wishlist";
+import Package from "@/pages/public/Package";
+import Packages from "@/pages/public/Packages";
 
 export const route = createBrowserRouter([
   {
@@ -23,6 +27,14 @@ export const route = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/packages",
+        element: <Packages />,
+      },
+      {
+        path: "/package/:packageID",
+        element: <Package />,
       },
       {
         path: "/authentication",
@@ -49,6 +61,14 @@ export const route = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+          },
+          {
+            path: "bookings",
+            element: <Booking />,
+          },
+          {
+            path: "wishlist",
+            element: <Wishlist />,
           },
         ],
       },

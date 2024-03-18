@@ -1,10 +1,12 @@
-import { Spinner, Tabs } from "keep-react";
+import { Button, Spinner, Tabs } from "keep-react";
 import overviewVideo from "@/assets/overview-video.mp4";
 import { useQuery } from "@tanstack/react-query";
 import axiosBase from "@/lib/config/axios.config";
 import PackageItem from "@/components/PackageItem";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navivate = useNavigate()
   const { data: packages, isLoading } = useQuery({
     queryKey: ["packages"],
     queryFn: async () => {
@@ -14,6 +16,7 @@ const Home = () => {
       return data?.data;
     },
   });
+
 
   return (
     <>
@@ -53,6 +56,16 @@ const Home = () => {
                   <PackageItem key={"pk" + idx} inputData={ele} />
                 ))
               )}
+            </div>
+            <div className="flex justify-center">
+              <Button
+                onClick={() => navivate("/packages")}
+                className="bg-pri hover:bg-pri/80"
+                color="primary"
+                size="sm"
+              >
+                All Packages
+              </Button>
             </div>
           </Tabs.Content>
           <Tabs.Content label="tourGuide">Meet Our Tour Guides</Tabs.Content>

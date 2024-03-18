@@ -4,7 +4,7 @@ import { Button } from "keep-react";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PackageItem = ({ inputData }) => {
   const [wishlist, setWishlist] = useState(false);
@@ -37,30 +37,34 @@ const PackageItem = ({ inputData }) => {
   };
 
   return (
-    <div className="space-y-2 rounded p-4 shadow">
-      <figure className="relative h-48 w-full overflow-hidden rounded shadow">
-        <img
-          className="h-full w-full object-cover object-center"
-          src={thumbnail}
-          alt={title + " image"}
-        />
-        <div className="absolute bottom-0 right-0 z-50 m-2">
-          <Button
-            onClick={handleWishlist}
-            className="bg-pri hover:bg-pri/80"
-            shape="icon"
-            size="sm"
-          >
-            {wishlist ? <FaHeart /> : <FaRegHeart />}
-          </Button>
+    <div className="flex flex-col justify-between gap-2 rounded border border-gray-300 p-4 shadow-md">
+      <div className="space-y-2">
+        <figure className="relative h-48 w-full overflow-hidden rounded shadow">
+          <img
+            className="h-full w-full object-cover object-center"
+            src={thumbnail}
+            alt={title + " image"}
+          />
+          <div className="absolute bottom-0 right-0 z-50 m-2">
+            <Button
+              onClick={handleWishlist}
+              className="bg-pri hover:bg-pri/80"
+              shape="icon"
+              size="sm"
+            >
+              {wishlist ? <FaHeart /> : <FaRegHeart />}
+            </Button>
+          </div>
+        </figure>
+        <Link to={`/package/${_id}`} className="font-bold hover:underline">
+          {title}
+        </Link>
+        <div className="text-sm text-gray-700">
+          <span className="font-bold">Type:</span> {type}
         </div>
-      </figure>
-      <h5 className="font-bold">{title}</h5>
-      <div className="text-sm text-gray-700">
-        <span className="font-bold">Type:</span> {type}
-      </div>
-      <div className="text-sm text-gray-700">
-        <span className="font-bold">Price:</span> ${price}
+        <div className="text-sm text-gray-700">
+          <span className="font-bold">Price:</span> ${price}
+        </div>
       </div>
       <Button
         onClick={() => navigate(`/package/${_id}`)}

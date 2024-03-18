@@ -3,7 +3,6 @@ import { FaUserAstronaut } from "react-icons/fa";
 
 const Profile = () => {
   const { user } = useAuth();
-  console.log(user);
   return (
     <div className="flex flex-wrap gap-2">
       <div className="size-36 overflow-hidden rounded-full bg-gray-300">

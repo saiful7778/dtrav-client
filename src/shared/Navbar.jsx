@@ -47,7 +47,7 @@ const Navbar = () => {
         }}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="fixed left-0 top-0 z-50 w-full"
+        className="fixed left-0 top-0 z-[100] w-full"
       >
         <div className="container flex h-fit w-full items-center justify-between border-b border-gray-300 bg-gray-100 p-2">
           <SiteLogo />
