@@ -25,6 +25,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const googleAuth = () => {
+    setLoader(true);
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   };
@@ -41,7 +42,6 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (currentUser) => {
-      setLoader(false);
       setUser(currentUser);
       if (currentUser) {
         axiosBase
@@ -63,6 +63,7 @@ const AuthContextProvider = ({ children }) => {
         setToken(null);
         setUserDetails(null);
       }
+      setLoader(false);
     });
     return () => {
       unSub();

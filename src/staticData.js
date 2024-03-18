@@ -36,3 +36,23 @@ export const heroText = [
     btnLink: "/",
   },
 ];
+
+export const adminNavlinks = [
+  { navName: "My Bookings", path: "/admin/bookings", accessRole: "user" },
+  { navName: "My Wishlist", path: "/admin/wishlist", accessRole: "user" },
+  {
+    navName: "My Assigned Tours",
+    path: "/admin/assign_tours",
+    accessRole: "guide",
+  },
+  {
+    navName: "Add Package",
+    path: "/admin/add_package",
+    accessRole: "admin",
+  },
+  {
+    navName: "Manage Users",
+    path: "/admin/manage_users",
+    accessRole: "admin",
+  },
+];

@@ -15,6 +15,10 @@ import Package from "@/pages/public/Package";
 import Packages from "@/pages/public/Packages";
 import PackageType from "@/pages/public/PackageType";
 import AuthenticationRoute from "./AuthenticationRoute";
+import RolePrivateRoute from "./RolePrivateRoute";
+import AssignTour from "@/pages/admin/guide/AssignTour";
+import AddPackage from "@/pages/admin/superAdmin/AddPackage";
+import ManageUser from "@/pages/admin/superAdmin/ManageUser";
 
 export const route = createBrowserRouter([
   {
@@ -74,11 +78,43 @@ export const route = createBrowserRouter([
           },
           {
             path: "bookings",
-            element: <Booking />,
+            element: (
+              <RolePrivateRoute>
+                <Booking />
+              </RolePrivateRoute>
+            ),
           },
           {
             path: "wishlist",
-            element: <Wishlist />,
+            element: (
+              <RolePrivateRoute>
+                <Wishlist />
+              </RolePrivateRoute>
+            ),
+          },
+          {
+            path: "assign_tours",
+            element: (
+              <RolePrivateRoute>
+                <AssignTour />
+              </RolePrivateRoute>
+            ),
+          },
+          {
+            path: "add_package",
+            element: (
+              <RolePrivateRoute>
+                <AddPackage />
+              </RolePrivateRoute>
+            ),
+          },
+          {
+            path: "manage_users",
+            element: (
+              <RolePrivateRoute>
+                <ManageUser />
+              </RolePrivateRoute>
+            ),
           },
         ],
       },

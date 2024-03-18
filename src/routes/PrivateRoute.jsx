@@ -5,15 +5,15 @@ import { useLocation, Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
-  const { user, loader } = useAuth();
-  if (loader) {
+  const { user, loader, userDetails } = useAuth();
+  if (loader && !userDetails) {
     return (
       <div className="flex h-[50vh] w-full items-center justify-center">
         <Spinner color="info" size="xl" />
       </div>
     );
   }
-  if (user) {
+  if (user || userDetails) {
     return children;
   }
   return <Navigate to="/authentication/login" state={{ from: location }} />;
