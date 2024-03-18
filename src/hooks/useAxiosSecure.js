@@ -15,11 +15,14 @@ export default function useAxiosSecure() {
       (err) => {
         let status = err.response.status;
         if (status === 401 || status === 403) {
-          logout()
-            .then(() => {
+          (async () => {
+            try {
+              await logout();
               navigate("/authentication/login");
-            })
-            .catch((err) => console.error(err));
+            } catch (err) {
+              console.error(err);
+            }
+          })();
         }
       },
     );
