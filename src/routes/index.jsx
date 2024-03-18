@@ -14,6 +14,7 @@ import Wishlist from "@/pages/admin/Wishlist";
 import Package from "@/pages/public/Package";
 import Packages from "@/pages/public/Packages";
 import PackageType from "@/pages/public/PackageType";
+import AuthenticationRoute from "./AuthenticationRoute";
 
 export const route = createBrowserRouter([
   {
@@ -43,7 +44,11 @@ export const route = createBrowserRouter([
       },
       {
         path: "/authentication",
-        element: <Authentication />,
+        element: (
+          <AuthenticationRoute>
+            <Authentication />
+          </AuthenticationRoute>
+        ),
         children: [
           {
             path: "register",
