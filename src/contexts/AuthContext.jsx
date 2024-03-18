@@ -15,7 +15,7 @@ const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
   const [token, setToken] = useState(null);
-  const [userRole, setUserRole] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
 
   const register = (email, password) => {
     setLoader(true);
@@ -46,7 +46,7 @@ const AuthContextProvider = ({ children }) => {
           .then(({ data }) => {
             if (data.success) {
               setToken(data?.token);
-              setUserRole(data?.role);
+              setUserDetails(data?.user);
             }
           })
           .catch((err) => {
@@ -54,6 +54,7 @@ const AuthContextProvider = ({ children }) => {
           });
       } else {
         setToken(null);
+        setUserDetails(null);
       }
     });
     return () => {
@@ -63,7 +64,7 @@ const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ loader, user, userRole, token, register, login, logout }}
+      value={{ loader, user, userDetails, token, register, login, logout }}
     >
       {children}
     </AuthContext.Provider>
