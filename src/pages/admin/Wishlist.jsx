@@ -91,7 +91,7 @@ const TableRow = ({ id, packageId, title, refetch }) => {
         },
       });
       try {
-        await axiosSecure.delete(
+        const { data } = await axiosSecure.delete(
           `/package/wishlist/${id}?email=${user.email}`,
           {
             headers: {
@@ -99,10 +99,17 @@ const TableRow = ({ id, packageId, title, refetch }) => {
             },
           },
         );
-        Swal.fire({
-          icon: "success",
-          title: "Delete successfully",
-        });
+        if (data.message?.deletedCount) {
+          Swal.fire({
+            icon: "success",
+            title: "Delete successfully",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            text: "Something went wrong",
+          });
+        }
       } catch (err) {
         Swal.fire({
           icon: "error",
