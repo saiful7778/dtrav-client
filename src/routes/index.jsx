@@ -13,6 +13,7 @@ import Booking from "@/pages/admin/Booking";
 import Wishlist from "@/pages/admin/Wishlist";
 import Package from "@/pages/public/Package";
 import Packages from "@/pages/public/Packages";
+import PackageType from "@/pages/public/PackageType";
 
 export const route = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const route = createBrowserRouter([
       {
         path: "/packages",
         element: <Packages />,
+      },
+      {
+        path: "/packages/:packageType",
+        element: <PackageType />,
       },
       {
         path: "/package/:packageID",

@@ -4,9 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import axiosBase from "@/lib/config/axios.config";
 import PackageItem from "@/components/PackageItem";
 import { useNavigate } from "react-router-dom";
+import PackageTypeItem from "@/components/PackageTypeItem";
+import { GiLion } from "react-icons/gi";
+import { RiRidingLine } from "react-icons/ri";
+import { TbSwimming } from "react-icons/tb";
 
 const Home = () => {
-  const navivate = useNavigate()
+  const navivate = useNavigate();
   const { data: packages, isLoading } = useQuery({
     queryKey: ["packages"],
     queryFn: async () => {
@@ -17,6 +21,20 @@ const Home = () => {
     },
   });
 
+  const types = [
+    {
+      name: "wildLife",
+      icon: <GiLion size={80} />,
+    },
+    {
+      name: "swimming",
+      icon: <TbSwimming size={80} />,
+    },
+    {
+      name: "riding",
+      icon: <RiRidingLine size={80} />,
+    },
+  ];
 
   return (
     <>
@@ -57,7 +75,7 @@ const Home = () => {
                 ))
               )}
             </div>
-            <div className="flex justify-center">
+            <div className="my-4 flex justify-center">
               <Button
                 onClick={() => navivate("/packages")}
                 className="bg-pri hover:bg-pri/80"
@@ -71,6 +89,15 @@ const Home = () => {
           <Tabs.Content label="tourGuide">Meet Our Tour Guides</Tabs.Content>
         </div>
       </Tabs>
+      <h3 className="my-8 text-center text-3xl font-bold">Type of our tours</h3>
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        {types.map((ele, idx) => (
+          <PackageTypeItem key={"type" + idx} link={ele.name}>
+            <div>{ele.icon}</div>
+            <div className="group-hover:underline">{ele.name}</div>
+          </PackageTypeItem>
+        ))}
+      </div>
     </>
   );
 };

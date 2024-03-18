@@ -37,7 +37,7 @@ const PackageItem = ({ inputData }) => {
   };
 
   return (
-    <div className="flex flex-col justify-between gap-2 rounded border border-gray-300 p-4 shadow-md">
+    <div className="flex flex-col justify-between gap-2 rounded border border-gray-300 bg-gray-50 p-4 shadow-md">
       <div className="space-y-2">
         <figure className="relative h-48 w-full overflow-hidden rounded shadow">
           <img
