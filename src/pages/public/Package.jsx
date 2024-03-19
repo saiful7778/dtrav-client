@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { Button, DatePicker, Spinner } from "keep-react";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   FaUserAstronaut,
   FaEnvelope,
@@ -144,6 +144,20 @@ const Package = () => {
         </div>
         <div className="text-gray-700">
           <span className="font-bold">Price:</span> ${price}
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          {guide?.map((ele, idx) => (
+            <Link
+              to={`/guide/${ele._id}`}
+              className="size-52 rounded-md border border-gray-500 p-4 shadow"
+              key={"guide" + idx}
+            >
+              <figure className="mx-auto size-40 overflow-hidden rounded-md">
+                <img src={ele.image} alt={ele.fullName + " image"} />
+              </figure>
+              <h6 className="text-center">{ele.fullName}</h6>
+            </Link>
+          ))}
         </div>
         <p>
           <span className="font-bold">About: </span>
