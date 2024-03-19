@@ -16,6 +16,7 @@ import {
 import Select from "@/components/formik/Select";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import SectionTitle from "@/components/SectionTitle";
 
 const Package = () => {
   const [spinner, setSpinner] = useState(false);
@@ -145,6 +146,7 @@ const Package = () => {
         <div className="text-gray-700">
           <span className="font-bold">Price:</span> ${price}
         </div>
+        <SectionTitle>See Our Tour Guides</SectionTitle>
         <div className="flex flex-wrap items-center gap-2">
           {guide?.map((ele, idx) => (
             <Link
