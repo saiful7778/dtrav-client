@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Button, Spinner, Table } from "keep-react";
 import moment from "moment";
 import PropTypes from "prop-types";
+import Swal from "sweetalert2";
 
 const Booking = () => {
   const { userDetails, user, token } = useAuth();
@@ -39,9 +40,13 @@ const Booking = () => {
       <div className="text-center text-xl font-bold">Something went wrong!</div>
     );
   }
+
+  const bookedPackageCount = bookings?.filter(
+    (ele) => ele.status !== "rejected" && true,
+  );
+
   return (
     <Table
-      className="z-[-1] overflow-auto"
       showBorder={true}
       showBorderPosition="right"
       striped={true}
@@ -68,10 +73,12 @@ const Booking = () => {
           <TableRow
             key={"whtb" + idx}
             refetch={refetch}
+            id={ele._id}
             packageName={ele.package.title}
             guideName={ele.guide.fullName}
             tourDate={ele.tourData}
             price={ele.price}
+            bookingCount={bookedPackageCount.length}
             status={ele.status}
           />
         ))}
@@ -80,8 +87,64 @@ const Booking = () => {
   );
 };
 
-const TableRow = ({ packageName, guideName, tourDate, price, status }) => {
+const TableRow = ({
+  id,
+  packageName,
+  guideName,
+  tourDate,
+  price,
+  status,
+  bookingCount,
+  refetch,
+}) => {
+  const axiosSecure = useAxiosSecure();
+  const { user, token } = useAuth();
   const date = moment(tourDate).format("Do MMM YY, h:mm a");
+
+  const handleCancel = async () => {
+    const { isConfirmed } = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+    });
+    if (isConfirmed) {
+      try {
+        Swal.fire({
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+        const { data } = await axiosSecure.delete(
+          `/package/booking/${id}?email=${user.email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        if (data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Delete successfully",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            text: "Something went wrong",
+          });
+        }
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          text: err,
+        });
+      } finally {
+        refetch();
+      }
+    }
+  };
 
   return (
     <Table.Row>
@@ -92,15 +155,25 @@ const TableRow = ({ packageName, guideName, tourDate, price, status }) => {
       <Table.Cell>{status}</Table.Cell>
       <Table.Cell>
         <div className="flex items-center gap-2">
-          <Button color="primary" variant="outline" size="xs">
-            Pay
-          </Button>
-          <Button color="error" size="xs">
-            Cancel
-          </Button>
-          <Button color="primary" size="xs">
-            Apply
-          </Button>
+          {status !== "rejected" && (
+            <Button
+              color="primary"
+              disabled={bookingCount > 3 ? false : true}
+              size="xs"
+            >
+              Apply
+            </Button>
+          )}
+          {status === "accepted" && (
+            <Button color="primary" variant="outline" size="xs">
+              Pay
+            </Button>
+          )}
+          {status === "review" && (
+            <Button onClick={handleCancel} color="error" size="xs">
+              Cancel
+            </Button>
+          )}
         </div>
       </Table.Cell>
     </Table.Row>
@@ -108,11 +181,14 @@ const TableRow = ({ packageName, guideName, tourDate, price, status }) => {
 };
 
 TableRow.propTypes = {
+  id: PropTypes.string,
   packageName: PropTypes.string,
   guideName: PropTypes.string,
   tourDate: PropTypes.string,
   price: PropTypes.number,
+  bookingCount: PropTypes.number,
   status: PropTypes.string,
+  refetch: PropTypes.func,
 };
 
 export default Booking;
