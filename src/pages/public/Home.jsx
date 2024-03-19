@@ -3,11 +3,12 @@ import overviewVideo from "@/assets/overview-video.mp4";
 import { useQuery } from "@tanstack/react-query";
 import axiosBase from "@/lib/config/axios.config";
 import PackageItem from "@/components/PackageItem";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PackageTypeItem from "@/components/PackageTypeItem";
 import { GiLion } from "react-icons/gi";
 import { RiRidingLine } from "react-icons/ri";
 import { TbSwimming } from "react-icons/tb";
+import SectionTitle from "@/components/SectionTitle";
 
 const Home = () => {
   const navivate = useNavigate();
@@ -18,6 +19,14 @@ const Home = () => {
         params: { limit: 3 },
       });
       return data?.data;
+    },
+  });
+
+  const { data: guide, isLoading: guideLoading } = useQuery({
+    queryKey: ["guide"],
+    queryFn: async () => {
+      const { data } = await axiosBase.get(`/user/guide`);
+      return data.data;
     },
   });
 
@@ -38,9 +47,7 @@ const Home = () => {
 
   return (
     <>
-      <h3 className="text-center text-3xl font-bold">
-        Tourism and Travel Guide
-      </h3>
+      <SectionTitle>Tourism and Travel Guide</SectionTitle>
       <Tabs
         className="my-10 flex flex-col items-center justify-center"
         activeLabel="overview"
@@ -64,17 +71,17 @@ const Home = () => {
             </div>
           </Tabs.Content>
           <Tabs.Content className="text-gray-800" label="packages">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {isLoading ? (
-                <div className="flex justify-center">
-                  <Spinner color="info" size="xl" />
-                </div>
-              ) : (
-                packages?.map((ele, idx) => (
+            {isLoading ? (
+              <div className="flex justify-center">
+                <Spinner color="info" size="xl" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {packages?.map((ele, idx) => (
                   <PackageItem key={"pk" + idx} inputData={ele} />
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
             <div className="my-4 flex justify-center">
               <Button
                 onClick={() => navivate("/packages")}
@@ -86,10 +93,31 @@ const Home = () => {
               </Button>
             </div>
           </Tabs.Content>
-          <Tabs.Content label="tourGuide">Meet Our Tour Guides</Tabs.Content>
+          <Tabs.Content label="tourGuide">
+            {guideLoading ? (
+              <div className="flex justify-center">
+                <Spinner color="info" size="xl" />
+              </div>
+            ) : (
+              <div className="flex flex-wrap items-center gap-2">
+                {guide?.map((ele, idx) => (
+                  <Link
+                    to={`/guide/${ele._id}`}
+                    className="size-52 rounded-md border border-gray-500 p-4 shadow"
+                    key={"guide" + idx}
+                  >
+                    <figure className="mx-auto size-40 overflow-hidden rounded-md">
+                      <img src={ele.image} alt={ele.fullName + " image"} />
+                    </figure>
+                    <h6 className="text-center">{ele.fullName}</h6>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </Tabs.Content>
         </div>
       </Tabs>
-      <h3 className="my-8 text-center text-3xl font-bold">Type of our tours</h3>
+      <SectionTitle>Type of our tours</SectionTitle>
       <div className="flex flex-wrap items-center justify-center gap-4">
         {types.map((ele, idx) => (
           <PackageTypeItem key={"type" + idx} link={ele.name}>
