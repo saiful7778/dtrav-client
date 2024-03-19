@@ -1,4 +1,4 @@
-import { Button, Dropdown } from "keep-react";
+import { Popover } from "keep-react";
 import { NavLink } from "react-router-dom";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { adminNavlinks } from "@/staticData";
@@ -8,16 +8,12 @@ import cn from "@/lib/cn";
 const AdminDropDown = ({ role }) => {
   return (
     <div className="sm:hidden">
-      <Dropdown
-        className="w-fit p-0"
-        action={
-          <Button className="bg-pri hover:bg-pri/80" shape="icon" size="sm">
-            <AiOutlineMenuFold size={20} />
-          </Button>
-        }
-      >
-        <Dropdown.List>
-          <Dropdown.Item className="p-1">
+      <Popover placement="bottom-end">
+        <Popover.Action>
+          <AiOutlineMenuFold size={20} />
+        </Popover.Action>
+        <Popover.Content className="z-20 flex flex-col items-center gap-3 rounded-xl bg-white p-4">
+          <div>
             <NavLink
               className={({ isActive }) =>
                 cn("block w-full rounded px-4 py-1", isActive && "bg-gray-300")
@@ -26,11 +22,11 @@ const AdminDropDown = ({ role }) => {
             >
               My Profile
             </NavLink>
-          </Dropdown.Item>
+          </div>
           {adminNavlinks?.map(
             (ele, idx) =>
               ele.accessRole === role && (
-                <Dropdown.Item className="p-1" key={"addd" + idx}>
+                <div key={"addd" + idx}>
                   <NavLink
                     className={({ isActive }) =>
                       cn(
@@ -42,11 +38,11 @@ const AdminDropDown = ({ role }) => {
                   >
                     {ele.navName}
                   </NavLink>
-                </Dropdown.Item>
+                </div>
               ),
           )}
-        </Dropdown.List>
-      </Dropdown>
+        </Popover.Content>
+      </Popover>
     </div>
   );
 };
