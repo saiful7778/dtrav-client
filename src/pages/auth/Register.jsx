@@ -1,6 +1,11 @@
 import { Form, Formik } from "formik";
 import { Input } from "@/components/formik/Input";
-import { FaUserAstronaut, FaEnvelope, FaLock } from "react-icons/fa";
+import {
+  FaUserAstronaut,
+  FaEnvelope,
+  FaLock,
+  FaRegImage,
+} from "react-icons/fa";
 import { Button, Spinner } from "keep-react";
 import { registerSchema } from "@/lib/schemas/authectication";
 import Password from "@/components/formik/Password";
@@ -18,6 +23,7 @@ const Register = () => {
   const { register, googleAuth } = useAuth();
 
   const initialValues = {
+    imageUrl: "",
     fullName: "",
     email: "",
     password: "",
@@ -31,16 +37,24 @@ const Register = () => {
       await updateProfile(user, {
         displayName: e.fullName,
       });
-      await axiosBase.post("/authentication/register", {
+      const res = await axiosBase.post("/authentication/register", {
+        image: e.imageUrl || null,
         email: e.email,
         name: e.fullName,
         userID: user.uid,
       });
-      Swal.fire({
-        icon: "success",
-        title: "Account is created",
-      });
-      navigate("/");
+      if (res.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Account is created",
+        });
+        navigate("/");
+      } else {
+        Swal.fire({
+          icon: "error",
+          text: res.message,
+        });
+      }
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -84,6 +98,14 @@ const Register = () => {
         onSubmit={handleSubmit}
       >
         <Form className="space-y-2">
+          <Input
+            type="url"
+            placeholder="Image link"
+            label="Your image"
+            name="imageUrl"
+            disabled={spinner}
+            icon={<FaRegImage size={19} />}
+          />
           <Input
             type="text"
             placeholder="Full name"

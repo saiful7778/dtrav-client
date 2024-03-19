@@ -91,7 +91,7 @@ const Navbar = () => {
 };
 
 const Authectication = () => {
-  const { user, logout } = useAuth();
+  const { user, userDetails, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -106,7 +106,7 @@ const Authectication = () => {
             className="bg-gray-300"
             size="md"
             shape="circle"
-            img={user?.photoURL}
+            img={user?.photoURL || userDetails?.image}
           />
         </Popover.Action>
         <Popover.Content className="z-20 rounded bg-white p-2 shadow">

@@ -12,6 +12,12 @@ const Profile = () => {
             src={user.photoURL}
             alt={user.displayName}
           />
+        ) : userDetails?.image ? (
+          <img
+            className="h-full w-full object-cover object-center"
+            src={userDetails.image}
+            alt={user.displayName}
+          />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
             <FaUserAstronaut size={120} />
