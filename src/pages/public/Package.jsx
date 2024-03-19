@@ -70,7 +70,7 @@ const Package = () => {
   const initialValues = {
     name: user?.displayName || "",
     email: user?.email || "",
-    image: user?.photoURL || "",
+    image: user?.photoURL || userDetails?.image || "",
     price: "",
     tourGuideName: "",
   };
@@ -80,7 +80,7 @@ const Package = () => {
     text: ele.fullName.charAt(0).toUpperCase() + ele.fullName.slice(1),
   }));
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, { resetForm }) => {
     if (!user) {
       navigate("/authentication/login");
     }
@@ -94,7 +94,7 @@ const Package = () => {
     try {
       setSpinner(true);
       await axiosSecure.post(
-        `/package?email=${user.email}`,
+        `/package/booking?email=${user.email}`,
         {
           packageID,
           userID: userDetails._id,
@@ -118,6 +118,7 @@ const Package = () => {
         text: err,
       });
     } finally {
+      resetForm();
       setSpinner(false);
     }
   };
