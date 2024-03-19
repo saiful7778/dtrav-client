@@ -47,8 +47,11 @@ const ManageUser = () => {
       hoverable={true}
     >
       <Table.Head>
-        <Table.HeadCell className="px-2 py-1">Package name</Table.HeadCell>
-        <Table.HeadCell className="px-2 py-1">Action</Table.HeadCell>
+        <Table.HeadCell className="min-w-44 px-2 py-1">
+          User name
+        </Table.HeadCell>
+        <Table.HeadCell className="min-w-52 px-2 py-1">Status</Table.HeadCell>
+        <Table.HeadCell className="min-w-72 px-2 py-1">Action</Table.HeadCell>
       </Table.Head>
       <Table.Body>
         {users?.map((ele, idx) => (

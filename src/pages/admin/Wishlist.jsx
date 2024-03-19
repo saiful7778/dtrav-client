@@ -50,8 +50,10 @@ const Wishlist = () => {
       hoverable={true}
     >
       <Table.Head>
-        <Table.HeadCell className="px-2 py-1">Package name</Table.HeadCell>
-        <Table.HeadCell className="px-2 py-1">Action</Table.HeadCell>
+        <Table.HeadCell className="min-w-80 px-2 py-1">
+          Package name
+        </Table.HeadCell>
+        <Table.HeadCell className="min-w-56 px-2 py-1">Action</Table.HeadCell>
       </Table.Head>
       <Table.Body>
         {wishlists?.map((ele, idx) => (

@@ -12,7 +12,7 @@ const AdminLayout = () => {
         <aside>
           <Sidebar role={userDetails?.role} />
         </aside>
-        <div className="flex-1">
+        <div className="flex-1 overflow-auto">
           <Outlet />
         </div>
       </div>
