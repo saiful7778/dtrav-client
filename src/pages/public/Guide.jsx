@@ -1,7 +1,7 @@
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Spinner } from "keep-react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaUserAstronaut, FaEnvelope, FaPencilAlt } from "react-icons/fa";
 import { Form, Formik } from "formik";
 import { Input } from "@/components/formik/Input";
@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 const Guide = () => {
   const { guideID } = useParams();
   const { user, userDetails, token } = useAuth();
+  const navigate = useNavigate();
   const [spinner, setSpinner] = useState(false);
   const axiosSecure = useAxiosSecure();
   const {
@@ -48,6 +49,9 @@ const Guide = () => {
 
   const handleSubmit = async (e, { resetForm }) => {
     setSpinner(true);
+    if (!user) {
+      navigate("/authentication/login");
+    }
     try {
       const { data } = await axiosSecure.post(
         `/user/guide/review/${guideID}?email=${user.email}`,
