@@ -20,6 +20,9 @@ import AssignTour from "@/pages/admin/guide/AssignTour";
 import AddPackage from "@/pages/admin/superAdmin/AddPackage";
 import ManageUser from "@/pages/admin/superAdmin/ManageUser";
 import Guide from "@/pages/public/Guide";
+import Community from "@/pages/public/Community";
+import Blog from "@/pages/public/Blog";
+import Contact from "@/pages/public/Contact";
 
 export const route = createBrowserRouter([
   {
@@ -34,6 +37,18 @@ export const route = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/community",
+        element: <Community />,
+      },
+      {
+        path: "/blogs",
+        element: <Blog />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
       {
         path: "/packages",

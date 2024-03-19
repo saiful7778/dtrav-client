@@ -1,11 +1,11 @@
 import SectionTitle from "@/components/SectionTitle";
 
-const About = () => {
+const Blog = () => {
   return (
     <>
-      <SectionTitle>About</SectionTitle>
+      <SectionTitle>Blog</SectionTitle>
     </>
   );
 };
 
-export default About;
+export default Blog;
