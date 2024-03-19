@@ -19,6 +19,7 @@ import RolePrivateRoute from "./RolePrivateRoute";
 import AssignTour from "@/pages/admin/guide/AssignTour";
 import AddPackage from "@/pages/admin/superAdmin/AddPackage";
 import ManageUser from "@/pages/admin/superAdmin/ManageUser";
+import Guide from "@/pages/public/Guide";
 
 export const route = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const route = createBrowserRouter([
       {
         path: "/package/:packageID",
         element: <Package />,
+      },
+      {
+        path: "/guide/:guideID",
+        element: <Guide />,
       },
       {
         path: "/authentication",
