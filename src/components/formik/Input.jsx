@@ -17,7 +17,6 @@ const InputComp = ({ placeholder, type, icon, name, label, disabled }) => {
             type={type}
             placeholder={placeholder}
             disabled={disabled}
-            maxLength={50}
             className="border-gray-400 ps-11 placeholder:text-gray-400 focus-visible:ring-gray-600"
             {...field}
           />
