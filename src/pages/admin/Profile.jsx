@@ -1,6 +1,7 @@
 import useAuth from "@/hooks/useAuth";
 import { FaUserAstronaut } from "react-icons/fa";
 import UpdateProfile from "./guide/UpdateProfile";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user, userDetails } = useAuth();
@@ -27,7 +28,16 @@ const Profile = () => {
         )}
       </div>
       <div className="w-full">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {userDetails?.role === "guide" && (
+          <Link
+            className="hover:underline"
+            target="_blank"
+            to={`/guide/${userDetails?._id}`}
+          >
+            show public profile view
+          </Link>
+        )}
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <div className="text-xs font-bold">Name</div>
             <div>{user.displayName}</div>

@@ -41,8 +41,8 @@ const Guide = () => {
   }
 
   const initialValue = {
-    name: user.displayName || "",
-    email: user.email || "",
+    name: user?.displayName || "",
+    email: user?.email || "",
     review: "",
   };
 

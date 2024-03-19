@@ -1,4 +1,5 @@
 import PackageItem from "@/components/PackageItem";
+import SectionTitle from "@/components/SectionTitle";
 import axiosBase from "@/lib/config/axios.config";
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "keep-react";
@@ -19,9 +20,7 @@ const PackageType = () => {
   });
   return (
     <>
-      <h3 className="my-8 text-center text-3xl font-bold">
-        Explore our {`'${packageType}'`} tour type
-      </h3>
+      <SectionTitle>Explore our {`'${packageType}'`} tour type</SectionTitle>
       {isLoading ? (
         <div className="flex w-full justify-center">
           <Spinner color="info" size="xl" />
